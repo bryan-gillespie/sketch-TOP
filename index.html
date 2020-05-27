@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Gochi+Hand&display=swap');
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: rgb(51, 81, 100);
+        text-align: center;
+    }
+
+    .container {
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .red-container {
+        margin: 20px 0 0 20px;
+        background-color: rgba(255, 0, 0, 0.884);
+        border-radius: 20px;
+        width:900px;
+        height: 900px;
+        text-align: center;
+    }
+
+    .grid-container {
+        margin: 0;
+        padding: 0;
+        position: relative;
+        top: 40px;
+        background-color: lightgray;
+        border: 4px solid black;
+        border-radius: 10px;
+        height: 800px;
+        width: 800px;
+        display: inline-grid;
+    }
+
+    .cell {
+        padding: 0;
+        margin: 0;
+        border: none;
+        outline: 0px solid rgb(226, 226, 226);
+    }
+
+    .control-area {
+        margin: 0;
+        padding: 0;
+        display: flexbox;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .title {
+        margin-top: 200px;
+        margin-left: 25px;
+        padding: 0;
+        display: flex;
+        font-family: Gochi Hand;
+        color: goldenrod;
+        font-size: 60px;
+    }
+
+    .button-css {
+        height: 130px;
+        width: 130px;
+        margin-top: 20px;
+        margin-left: 170px;
+        background-color: white;
+        border-radius: 50%;
+        text-align: center;
+        justify-content: center;
+        font-family: Bebas Neue;
+        color: gray;
+        font-size: 35px;
+        display: flex;
+    }
+
+    .button-css:hover {
+        transform: scale(1.12);
+        cursor: pointer;
+    }
+
+    .clicked {
+        transform: scale(.85);
+    }
+
+    .button-text {
+        margin-top: 40px;
+    }
+    
+
+</style>
+
+<html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <title>Etch-A-Sketch</title>
+ </head>
+<body>
+    <div class="container">
+        <div class="red-container">
+            <div id ="grid-container" class="grid-container"></div>
+        </div>
+        <div class="control-area">
+            <div class="title">JavaScript-Sketch</div>
+            <div class="button-css">
+                <div class="button-text">New grid</div>
+            </div>
+        </div>
+    </div>
+    
+    
+ <script>
+
+     function createGrid(x) {
+         for (var rows=0; rows<x; rows++) {
+             for (var columns=0; columns<x; columns++) {
+                 $("#grid-container").append("<div class='cell'></div>");
+             };
+         };
+         $(".cell").width(800/x);
+         $(".cell").height(800/x);
+         $("#grid-container").css("grid-template-columns", "repeat("+x+","+800/x +"px");
+     };
+
+     function clearGrid() {
+         $(".cell").remove();
+     }
+
+     function refreshGrid() {
+         var y = prompt("Enter sketch width:");
+         clearGrid();
+         createGrid(y);
+     }
+
+     $(document).ready(function() {
+        createGrid(20);
+        $("#grid-container").css("grid-template-columns", "repeat(20, 40px)");
+     
+        $(".cell").mouseover(function() {
+            $(this).css("background-color", "black");
+         });
+
+        $(".button-css").click(function() {
+            $(this).toggleClass('.clicked');
+            setTimeout(function() { $(this).toggleClass('.clicked')},100);
+            refreshGrid();
+
+            $(".cell").mouseover(function() {
+            $(this).css("background-color", "black");
+         });
+
+        })
+     });
+
+     
+
+ </script>
+</body>
+</html>
